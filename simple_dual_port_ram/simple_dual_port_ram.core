@@ -1,0 +1,50 @@
+CAPI=2:
+
+name: mkru:vhdl-sim:simple_dual_port_ram
+
+filesets:
+  src:
+    files:
+      - src/simple_dual_port_ram.vhd
+    file_type: vhdlSource-2008
+    logical_name: sim
+  tb_common_clock:
+    files:
+      - tb/tb_common_clock.vhd
+    file_type: vhdlSource-2008
+  tb_dead_time:
+    files:
+      - tb/tb_dead_time.vhd
+    file_type: vhdlSource-2008
+
+parameters:
+  READ_LATENCY:
+    datatype: int
+    paramtype: generic
+
+targets:
+  default:
+    filesets:
+      - src
+  tb_common_clock_read_latency_1:
+    default_tool: ghdl
+    toplevel: tb_simple_dual_port_ram_common_clock
+    parameters:
+      - READ_LATENCY=1
+    filesets:
+      - src
+      - tb_common_clock
+  tb_common_clock_read_latency_2:
+    default_tool: ghdl
+    toplevel: tb_simple_dual_port_ram_common_clock
+    parameters:
+      - READ_LATENCY=2
+    filesets:
+      - src
+      - tb_common_clock
+  tb_dead_time:
+    default_tool: ghdl
+    toplevel: tb_simple_dual_port_ram_dead_time
+    filesets:
+      - src
+      - tb_dead_time
