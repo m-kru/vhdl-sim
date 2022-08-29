@@ -1,0 +1,25 @@
+CAPI=2:
+
+name: mkru:vhdl-sim:simple_pll
+
+filesets:
+  src:
+    files:
+      - src/simple_pll.vhd
+    file_type: vhdlSource-2008
+    logical_name: sim
+  tb:
+    files:
+      - tb/tb.vhd
+    file_type: vhdlSource-2008
+
+targets:
+  default:
+    filesets:
+      - src
+  tb:
+    default_tool: ghdl
+    toplevel: tb_simple_pll
+    filesets:
+      - src
+      - tb
