@@ -9,6 +9,9 @@ library ieee;
 -- Simulating lock loss can be achieved with proper driving of clk_i and INPUT_PERIOD_TOLERANCE generic value.
 -- In such case LOCK_LOST_SEVERITY must be set correctly to not cause simulation failure.
 --
+-- Clocks are specified with periods, not frequencies, because seconds_to_time() function has been introduced in VHDL 2019,
+-- and support for this revision was still poor during development.
+--
 -- clk_i must be stable for more than the LOCK_TIME (starting from the rising edge) to allow Simple_PLL to acquire the lock.
 --
 -- INPUT_PERIOD - input clock period.
