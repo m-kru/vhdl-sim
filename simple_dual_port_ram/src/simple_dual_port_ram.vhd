@@ -149,16 +149,19 @@ begin
 
       if rising_edge(clka_i) then
          if ena_i = '1' then
-            blka  := blk_idx(addra_i);
-            addra := addr_in_blk(addra_i);
-
             if wea_i = '1' then
+               blka  := blk_idx(addra_i);
+               addra := addr_in_blk(addra_i);
+
                assert addra_i < DEPTH
                   report PREFIX & "cannot write address " & to_string(addra_i) & " as the DEPTH is " & to_string(DEPTH)
                   severity failure;
 
                if mem(blka) = null then
                   mem(blka) := new t_block;
+                  for i in 0 to BLOCK_SIZE - 1 loop
+                     mem(blka)(i) := INIT_VALUE;
+                  end loop;
                end if;
 
                mem(blka).all(addra) := dataa_i;
